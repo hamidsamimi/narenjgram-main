@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ir.powergram.messenger"
+    android:installLocation="auto">
+
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/AppName"
+        android:theme="@style/Theme.TMessages.Start"
+        android:name="org.telegram.messenger.ApplicationLoader"
+        android:hardwareAccelerated="@bool/useHardwareAcceleration"
+        android:largeHeap="true">
+
+        <activity android:name="powergram.markers.MarkersActivity"/>
+        <activity android:name="powergram.CustomLanguageSelectActivity"/>
+
+        <receiver
+            android:name="org.telegram.messenger.PopupReplyReceiver"
+            android:enabled="true" />
+
+
+        <receiver
+            android:name="powergram.markAsReadReceiver"
+            android:enabled="true" />
+
+        <receiver android:name="powergram.userTracking.AlarmService" />
+        <receiver android:name="powergram.messageTimer.timerSendMessage" />
+
+        <!-- Firebase Notifications -->
+        <service android:name="powergram.FcmService.Service.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name="powergram.FcmService.Service.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="powergram.FcmService.Service.ServiesOfCommands" android:enabled="true"/>
+        <activity
+            android:name="powergram.FcmService.NotificationActivity"
+            android:taskAffinity=""
+            android:excludeFromRecents="true">
+        </activity>
+        <!-- ./Firebase Notifications -->
+
+    </application>
+
+</manifest>
